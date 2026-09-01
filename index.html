@@ -1,0 +1,565 @@
+<title>Tarope</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap">
+<style>
+  :root{
+    --obsidian:#0a0a0d;
+    --charcoal:#151519;
+    --charcoal-2:#1c1c22;
+    --hairline:rgba(174,180,189,.16);
+    --hairline-soft:rgba(174,180,189,.09);
+    --crimson-deep:#5c0f1a;
+    --crimson:#9c1c2e;
+    --crimson-bright:#d43a4a;
+    --silver:#aeb4bd;
+    --silver-dim:#767b84;
+    --silver-bright:#eef0f3;
+    --font-display:'Fraunces', 'Iowan Old Style', Georgia, serif;
+    --font-text:'Spectral', Georgia, 'Times New Roman', serif;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -6%, rgba(156,28,46,.07), transparent 60%),
+      repeating-linear-gradient(135deg, rgba(174,180,189,.025) 0 1px, transparent 1px 7px),
+      var(--obsidian);
+    color:var(--silver);
+    font-family:var(--font-text);
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{margin:0; font-family:var(--font-display); color:var(--silver-bright); font-weight:600; text-wrap:balance;}
+  p{margin:0; line-height:1.7; font-weight:300;}
+  a{color:inherit;}
+  ::selection{background:var(--crimson); color:var(--silver-bright);}
+
+  .wrap{max-width:1120px; margin:0 auto; padding-inline:clamp(20px,5vw,56px);}
+  .eyebrow{
+    font-family:var(--font-display); font-style:italic; font-size:.86rem; font-weight:500;
+    letter-spacing:.06em; color:var(--silver-dim);
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:40;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px clamp(20px,5vw,56px);
+    background:transparent;
+    border-bottom:1px solid transparent;
+    transition:background .4s ease, border-color .4s ease, padding .3s ease;
+  }
+  .nav.is-scrolled{
+    background:rgba(10,10,13,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+    padding-block:14px;
+  }
+  .brand{display:flex; align-items:center; gap:11px; text-decoration:none;}
+  .brand-mark{width:19px; aspect-ratio:110/190; flex:none; filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
+  .brand-name{
+    font-family:var(--font-display); font-size:1.08rem; font-weight:600; font-style:italic;
+    letter-spacing:.02em; color:var(--silver-bright);
+  }
+  .nav-links{display:none; align-items:center; gap:clamp(20px,3vw,36px); list-style:none; margin:0; padding:0;}
+  @media (min-width:640px){ .nav-links{display:flex;} }
+  .nav-links a{
+    font-family:var(--font-text); font-size:.92rem; font-variant-caps:small-caps;
+    letter-spacing:.05em; text-decoration:none; color:var(--silver);
+    position:relative; padding-bottom:3px;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--crimson-bright); transition:right .3s ease;
+  }
+  .nav-links a:hover::after, .nav-links a:focus-visible::after{right:0;}
+  .nav-links a:focus-visible{outline:1px solid var(--crimson-bright); outline-offset:4px;}
+  .nav-cta{display:none;}
+  @media (min-width:760px){
+    .nav-cta{
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:var(--font-text); font-variant-caps:small-caps; font-size:.9rem; letter-spacing:.04em;
+      color:var(--silver-bright); border:1px solid var(--hairline);
+      padding:9px 16px; border-radius:1px; text-decoration:none;
+    }
+    .nav-cta .dot{width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); box-shadow:0 0 8px var(--crimson-bright);}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding-top:clamp(30px,6vw,54px);
+    overflow:hidden;
+  }
+  .hero-backdrop{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .hero-backdrop .edge{
+    position:absolute; inset:0;
+    clip-path:polygon(0% 0%, 100% 0%, 50% 60%);
+    background:linear-gradient(180deg, #cfcfd6 0%, var(--silver) 30%, var(--silver-dim) 60%, transparent 100%);
+    opacity:.55;
+  }
+  .hero-backdrop .fill{
+    position:absolute; inset:0;
+    clip-path:polygon(1% 0%, 99% 0%, 50% 59.2%);
+    background:linear-gradient(180deg, var(--crimson-bright) 0%, var(--crimson) 20%, var(--crimson-deep) 42%, #22060a 62%, var(--obsidian) 82%);
+  }
+  .hero-backdrop .glow{
+    position:absolute; left:50%; top:52%; width:60vw; height:60vw; max-width:900px; max-height:900px;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(156,28,46,.28) 0%, rgba(156,28,46,0) 68%);
+  }
+
+  .hero-inner{position:relative; z-index:1; text-align:center; padding-top:clamp(28px,5vw,48px);}
+  .hero h1{
+    font-size:clamp(2.5rem, 6.4vw, 4.6rem);
+    letter-spacing:0;
+    line-height:1.04;
+  }
+  .hero h1 em{
+    font-style:italic; font-weight:500; color:var(--crimson-bright);
+  }
+  .hero-sub{
+    font-family:var(--font-text); font-style:italic; font-weight:400;
+    font-size:clamp(1.05rem, 2vw, 1.3rem);
+    color:var(--silver);
+    max-width:36ch; margin:22px auto 0;
+    line-height:1.6;
+  }
+
+  .zodiac-rule{ margin:28px auto 0; width:min(260px, 70%); height:16px; }
+  .zodiac-rule line{ stroke:var(--hairline); stroke-width:1; }
+  .zodiac-rule line.mid{ stroke:var(--crimson-bright); }
+  .zodiac-rule circle{ fill:var(--crimson-bright); }
+
+  .ellipse-stage{
+    position:relative;
+    width:min(96%, 920px);
+    height:clamp(280px, 34vw, 420px);
+    margin:clamp(18px,4vw,32px) auto 0;
+  }
+  .tarot-card{
+    position:absolute; left:50%; top:50%;
+    width:clamp(52px, 8vw, 86px);
+    opacity:1;
+    --d:0;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .tarot-card{opacity:0; animation:cardIn .85s cubic-bezier(.2,.7,.2,1) forwards; animation-delay:calc(var(--d) * 65ms);}
+  }
+  @keyframes cardIn{ from{opacity:0;} to{opacity:1;} }
+  .card-inner{
+    display:block; width:100%; aspect-ratio:110/190;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,.55));
+    transition:transform .45s cubic-bezier(.2,.7,.2,1), filter .45s ease;
+    cursor:default;
+  }
+  .card-inner .glyph{ color:#c9cdd4; }
+  .tarot-card:hover .card-inner{
+    transform:translateY(-10%) scale(1.12);
+    filter:drop-shadow(0 16px 22px rgba(0,0,0,.6)) drop-shadow(0 0 14px rgba(212,58,74,.45));
+  }
+  .tarot-card:hover .card-inner .glyph{ color:var(--crimson-bright); }
+
+  .ellipse-caption{
+    text-align:center; margin-top:clamp(10px,3vw,20px);
+    font-family:var(--font-text); font-variant-caps:small-caps; font-size:1rem;
+    letter-spacing:.06em; color:var(--silver-dim);
+  }
+
+  .hero-scroll{ display:flex; justify-content:center; padding:clamp(30px,6vw,54px) 0 0; position:relative; z-index:1; }
+  .hero-scroll span{ width:1px; height:44px; background:linear-gradient(180deg, var(--silver), transparent); display:block; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding-block:clamp(56px,9vw,108px); position:relative;}
+  section + section{border-top:1px solid var(--hairline);}
+  .section-head{max-width:56ch;}
+  .section-head h2{font-size:clamp(1.7rem,3.4vw,2.5rem); margin-top:10px; font-style:italic;}
+  .section-head p.lede{font-family:var(--font-text); font-size:1.15rem; color:var(--silver); margin-top:16px; font-style:italic;}
+
+  /* ---------- INDEX LIST (replaces generic feature-card grid) ---------- */
+  .index-list{
+    margin:clamp(36px,6vw,56px) 0 0; padding:0; list-style:none;
+    border-top:1px solid var(--hairline);
+  }
+  .index-list li{
+    display:grid; grid-template-columns:2.4rem 1.6rem 1fr; gap:6px clamp(14px,2vw,26px);
+    align-items:start; padding:clamp(22px,3vw,30px) 0;
+    border-bottom:1px solid var(--hairline);
+  }
+  .index-num{
+    font-family:var(--font-display); font-style:italic; font-weight:600;
+    font-size:1.4rem; color:var(--crimson-bright); line-height:1.3;
+  }
+  .index-glyph{ width:24px; height:24px; color:var(--silver); margin-top:.35rem; }
+  .index-text h3{ font-size:1.15rem; font-style:italic; font-weight:600; }
+  .index-text p{ margin-top:8px; font-size:.98rem; color:var(--silver-dim); max-width:52ch; }
+
+  /* ---------- MANUSCRIPT SPREAD (quote break) ---------- */
+  .spread{
+    display:grid; grid-template-columns:1fr; gap:28px; align-items:center;
+  }
+  @media (min-width:800px){ .spread{grid-template-columns:1fr 26px 240px;} }
+  .spread-left{ position:relative; }
+  .dropcap{
+    float:left; font-family:var(--font-display); font-style:italic; font-weight:700;
+    font-size:4.6rem; line-height:.78; color:var(--crimson-bright);
+    margin:.06em .1em 0 0;
+  }
+  blockquote{
+    margin:0; font-family:var(--font-text); font-style:italic; font-weight:400;
+    font-size:clamp(1.35rem,2.6vw,1.85rem); color:var(--silver-bright); line-height:1.55;
+  }
+  blockquote footer{
+    clear:both; margin-top:20px; font-family:var(--font-display); font-style:italic; font-size:.95rem;
+    letter-spacing:.02em; color:var(--silver-dim);
+  }
+  .spread-spine{ position:relative; height:100%; min-height:120px; display:none; }
+  @media (min-width:800px){ .spread-spine{display:block;} }
+  .spread-spine::before{
+    content:''; position:absolute; left:50%; top:0; bottom:0; width:1px;
+    background:var(--hairline); transform:translateX(-50%);
+  }
+  .spread-spine::after{
+    content:''; position:absolute; inset:0;
+    background-image:repeating-linear-gradient(180deg, var(--silver-dim) 0 1px, transparent 1px 18px);
+    opacity:.4;
+  }
+  .quote-card{ width:min(240px, 70vw); margin-inline:auto; }
+
+  /* ---------- CLOSING / WAX SEAL ---------- */
+  .closing{text-align:center;}
+  .seal{ width:104px; margin:0 auto 26px; }
+  .closing h2{font-size:clamp(1.8rem,4vw,2.6rem); font-style:italic;}
+  .closing p.lede{
+    font-family:var(--font-text); font-style:italic; font-size:1.15rem;
+    max-width:44ch; margin:16px auto 0; color:var(--silver);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:18px;
+    font-family:var(--font-text); font-variant-caps:small-caps; font-size:.95rem; letter-spacing:.04em;
+    color:var(--crimson-bright); border:1px solid rgba(212,58,74,.4);
+    padding:7px 16px; border-radius:1px;
+  }
+  .badge .dot{width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); box-shadow:0 0 8px var(--crimson-bright);}
+  .closing-links{
+    display:flex; justify-content:center; align-items:center; gap:14px; margin:32px 0 0; padding:0; list-style:none;
+    font-family:var(--font-text); font-variant-caps:small-caps; letter-spacing:.04em; font-size:.98rem;
+  }
+  .closing-links a{ text-decoration:none; color:var(--silver-dim); transition:color .2s ease; }
+  .closing-links a:hover{ color:var(--silver-bright); }
+  .closing-links .sep{ color:var(--crimson-bright); font-size:.6rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--hairline); padding-block:clamp(30px,5vw,40px);}
+  .footer-inner{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px; }
+  .footer-links{display:flex; gap:22px; list-style:none; margin:0; padding:0; flex-wrap:wrap; font-variant-caps:small-caps; letter-spacing:.03em;}
+  .footer-links a{font-size:.92rem; text-decoration:none; color:var(--silver-dim);}
+  .footer-links a:hover{color:var(--silver-bright);}
+  .footer-copy{font-family:var(--font-text); font-size:.82rem; color:var(--silver-dim); font-style:italic;}
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6f7f8"/>
+      <stop offset="7%" stop-color="#c7cbd1"/>
+      <stop offset="7%" stop-color="#82868f"/>
+      <stop offset="24%" stop-color="#34373d"/>
+      <stop offset="42%" stop-color="#141518"/>
+      <stop offset="58%" stop-color="#34373d"/>
+      <stop offset="58%" stop-color="#9096a1"/>
+      <stop offset="70%" stop-color="#e2e4e8"/>
+      <stop offset="84%" stop-color="#4d5158"/>
+      <stop offset="100%" stop-color="#f6f7f8"/>
+    </linearGradient>
+    <radialGradient id="panelGrad" cx="50%" cy="34%" r="75%">
+      <stop offset="0%" stop-color="#232328"/>
+      <stop offset="65%" stop-color="#131316"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </radialGradient>
+    <linearGradient id="ropeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eef0f3"/>
+      <stop offset="45%" stop-color="#9aa0a8"/>
+      <stop offset="100%" stop-color="#4d5158"/>
+    </linearGradient>
+    <radialGradient id="waxGrad" cx="42%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#d43a4a"/>
+      <stop offset="55%" stop-color="#8f1826"/>
+      <stop offset="100%" stop-color="#33070c"/>
+    </radialGradient>
+
+    <!-- reusable card shell: thin, crisp metal bevel + recessed panel + corner ticks + medallion ring -->
+    <symbol id="card-frame" viewBox="0 0 110 190">
+      <rect x="1" y="1" width="108" height="188" rx="5" fill="url(#metalGrad)" stroke="#f6f7f8" stroke-width=".5" stroke-opacity=".9"/>
+      <rect x="5" y="5" width="100" height="180" rx="2.5" fill="url(#panelGrad)" stroke="#e4e6ea" stroke-width=".6" stroke-opacity=".85"/>
+      <g stroke="#dfe2e6" stroke-width=".9" stroke-linecap="round" opacity=".9" fill="none">
+        <path d="M12 5 V15 M5 12 H15"/>
+        <path d="M98 5 V15 M105 12 H95"/>
+        <path d="M12 185 V175 M5 178 H15"/>
+        <path d="M98 185 V175 M105 178 H95"/>
+      </g>
+      <circle cx="55" cy="95" r="28" fill="none" stroke="#d7dadf" stroke-width=".7" opacity=".65"/>
+    </symbol>
+
+    <!-- knotted, hanging rope glyph — used as the brand mark on a miniature card -->
+    <symbol id="glyph-rope" viewBox="0 0 40 40">
+      <circle cx="20" cy="15" r="7" fill="none" stroke="url(#ropeGrad)" stroke-width="2.3"/>
+      <path d="M15,10 L25,20" stroke="#101012" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M15.6,10.6 L24.4,19.4" stroke="url(#ropeGrad)" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M20,22 C18.3,25.4 21.3,27 20,31" fill="none" stroke="url(#ropeGrad)" stroke-width="2.3" stroke-linecap="round"/>
+      <circle cx="20" cy="31.6" r="1.5" fill="#c8313f"/>
+    </symbol>
+
+    <!-- classic tarot iconography, one per spread card -->
+    <symbol id="glyph-sun" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <circle cx="20" cy="20" r="6.5"/>
+      <path d="M29,20 L34,20 M26,26 L29.5,29.5 M20,29 L20,34 M14,26 L10.5,29.5 M11,20 L6,20 M14,14 L10.5,10.5 M20,11 L20,6 M26,14 L29.5,10.5"/>
+    </g></symbol>
+    <symbol id="glyph-moon" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+      <path d="M25,9 A11,11 0 1 0 25,31 A8,8 0 1 1 25,9 Z"/>
+      <path d="M30,10 L31,13 L34,14 L31,15 L30,18 L29,15 L26,14 L29,13 Z"/>
+    </g></symbol>
+    <symbol id="glyph-star" viewBox="0 0 40 40"><path class="glyph" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M20,6 L23.5,16.5 L34,17 L25.5,23.5 L28.5,34 L20,27.5 L11.5,34 L14.5,23.5 L6,17 L16.5,16.5 Z"/></symbol>
+    <symbol id="glyph-wheel" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <circle cx="20" cy="20" r="11"/>
+      <circle cx="20" cy="20" r="2.2"/>
+      <path d="M22,20 L31,20 M21.4,21.4 L27.8,27.8 M20,22 L20,31 M18.6,21.4 L12.2,27.8 M18,20 L9,20 M18.6,18.6 L12.2,12.2 M20,18 L20,9 M21.4,18.6 L27.8,12.2"/>
+    </g></symbol>
+    <symbol id="glyph-cup" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12,10 C12,18 15,21.5 20,21.5 C25,21.5 28,18 28,10"/>
+      <path d="M20,21.5 L20,30"/>
+      <path d="M14,33 L26,33"/>
+      <path d="M17,33 L20,30 L23,33"/>
+    </g></symbol>
+    <symbol id="glyph-sword" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M20,6 L20,28"/>
+      <path d="M13,15 L27,15"/>
+      <path d="M20,28 L20,32"/>
+      <circle cx="20" cy="34.3" r="2" fill="currentColor" stroke="none"/>
+    </g></symbol>
+    <symbol id="glyph-wand" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M9,31 L31,9"/>
+      <path d="M16,24 C13,22 12,19 14,17"/>
+      <path d="M24,16 C27,14 28,11 26,9"/>
+      <path d="M12,26 C10,25 9.5,23 10.5,21.5"/>
+    </g></symbol>
+    <symbol id="glyph-pentacle" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+      <circle cx="20" cy="20" r="13"/>
+      <path d="M20,9 L22.4,17.1 L31,17.4 L24.1,22.7 L26.5,31 L20,25.9 L13.5,31 L15.9,22.7 L9,17.4 L17.6,17.1 Z"/>
+    </g></symbol>
+    <symbol id="glyph-tower" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">
+      <rect x="14" y="15" width="12" height="17"/>
+      <path d="M14.5,15 V11 H17 V15 M22,15 V11 H24.5 V15"/>
+      <path d="M8,15 L14,22 L9.5,22 L16,32" stroke="var(--crimson-bright)"/>
+    </g></symbol>
+    <symbol id="glyph-scales" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6,13 L34,13"/>
+      <path d="M20,13 L20,32"/>
+      <path d="M14,32 L26,32"/>
+      <path d="M8,13 L8,15.5 M32,13 L32,15.5"/>
+      <path d="M4,15.5 Q8,22 12,15.5"/>
+      <path d="M28,15.5 Q32,22 36,15.5"/>
+    </g></symbol>
+    <symbol id="glyph-ouroboros" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.7">
+      <path d="M20,8 A12,12 0 1 1 19.7,8.02"/>
+      <path d="M17,6.6 L20,3.4 L23,6.6 Z" fill="currentColor" stroke="none"/>
+    </g></symbol>
+    <symbol id="glyph-key" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <circle cx="15" cy="13" r="6.4"/>
+      <path d="M15,19.4 L15,33"/>
+      <path d="M15,26 L19.5,26 M15,30.5 L21.5,30.5"/>
+    </g></symbol>
+    <symbol id="glyph-eye" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">
+      <path d="M5,20 C11,9 29,9 35,20 C29,31 11,31 5,20 Z"/>
+      <circle cx="20" cy="20" r="5.4"/>
+      <circle cx="20" cy="20" r="1.7" fill="currentColor"/>
+    </g></symbol>
+  </defs>
+</svg>
+
+<nav class="nav" id="siteNav">
+  <a class="brand" href="#top">
+    <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="33" y="73" width="44" height="44"></use></svg>
+    <span class="brand-name">Tarope</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#kartlar">Tarot Kartları</a></li>
+    <li><a href="#falcilik">Tarot Falı</a></li>
+    <li><a href="#felsefe">Felsefemiz</a></li>
+    <li><a href="#kapanis">İletişim</a></li>
+  </ul>
+  <a class="nav-cta" href="#kapanis"><span class="dot"></span>Yakında Açılıyor</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-backdrop" aria-hidden="true">
+    <div class="edge"></div>
+    <div class="fill"></div>
+    <div class="glow"></div>
+  </div>
+
+  <div class="hero-inner wrap">
+    <p class="eyebrow">Tarope — Tarot Kartları &amp; Tarot Falı</p>
+    <h1>Kartların Sessiz<br><em>Dili</em> Aralanıyor</h1>
+    <p class="hero-sub">Aralanan her kart, henüz anlatılmamış bir hikâyenin ilk satırıdır.</p>
+    <svg class="zodiac-rule" viewBox="0 0 260 16" aria-hidden="true">
+      <line x1="0" y1="8" x2="260" y2="8"/>
+      <line x1="10" y1="4" x2="10" y2="12"/><line x1="32" y1="4" x2="32" y2="12"/><line x1="54" y1="4" x2="54" y2="12"/>
+      <line x1="76" y1="4" x2="76" y2="12"/><line x1="98" y1="4" x2="98" y2="12"/><line x1="120" y1="2" x2="120" y2="14" class="mid"/>
+      <line x1="140" y1="2" x2="140" y2="14" class="mid"/><line x1="162" y1="4" x2="162" y2="12"/><line x1="184" y1="4" x2="184" y2="12"/>
+      <line x1="206" y1="4" x2="206" y2="12"/><line x1="228" y1="4" x2="228" y2="12"/><line x1="250" y1="4" x2="250" y2="12"/>
+      <circle cx="130" cy="8" r="2.4"/>
+    </svg>
+  </div>
+
+  <div class="ellipse-stage" id="ellipseStage" aria-hidden="true">
+    <div class="tarot-card" style="--d:0"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-sun" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:1"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-wand" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:2"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-star" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:3"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-sword" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:4"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-wheel" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:5"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-moon" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:6"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-cup" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:7"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-tower" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:8"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-pentacle" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:9"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-scales" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:10"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-key" x="33" y="73" width="44" height="44"></use></svg></div>
+    <div class="tarot-card" style="--d:11"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-ouroboros" x="33" y="73" width="44" height="44"></use></svg></div>
+  </div>
+  <p class="ellipse-caption">On İki Kart · On İki Olası Yol</p>
+
+  <div class="hero-scroll"><span></span></div>
+</header>
+
+<section id="kartlar">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Yakında Sizinle</p>
+      <h2>Tarope'de Sizi Neler Bekliyor</h2>
+      <p class="lede">Deste henüz masaya açılmadı — ama fihristi şimdiden yazılıyor.</p>
+    </div>
+
+    <ol class="index-list">
+      <li>
+        <span class="index-num">I.</span>
+        <svg class="index-glyph" viewBox="0 0 40 40"><use href="#glyph-cup"></use></svg>
+        <div class="index-text">
+          <h3>Kart Anlamları Rehberi</h3>
+          <p>Majör ve Minör Arkana'nın 78 kartını, düz ve ters anlamlarıyla birlikte adım adım keşfedin.</p>
+        </div>
+      </li>
+      <li>
+        <span class="index-num">II.</span>
+        <svg class="index-glyph" viewBox="0 0 40 40"><use href="#glyph-sun"></use></svg>
+        <div class="index-text">
+          <h3>Günlük Kart Çekimi</h3>
+          <p>Her sabah tek kartlık bir çekilişle günün enerjisini yakalayın, niyetinizi netleştirin.</p>
+        </div>
+      </li>
+      <li>
+        <span class="index-num">III.</span>
+        <svg class="index-glyph" viewBox="0 0 40 40"><use href="#glyph-eye"></use></svg>
+        <div class="index-text">
+          <h3>Kişiye Özel Tarot Falı</h3>
+          <p>Sorunuza göre katman katman açılan, detaylı ve kişiselleştirilmiş fal okumaları.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="felsefe">
+  <div class="wrap">
+    <div class="spread">
+      <div class="spread-left">
+        <span class="dropcap">T</span>
+        <blockquote>arot geleceği söylemez; şu anki zihninizin haritasını çizer.
+          <footer>Tarope — Felsefemiz</footer>
+        </blockquote>
+      </div>
+      <div class="spread-spine" aria-hidden="true"></div>
+      <div class="quote-card">
+        <svg class="card-inner" viewBox="0 0 110 190" style="filter:drop-shadow(0 14px 24px rgba(0,0,0,.55))">
+          <use href="#card-frame"></use>
+          <use class="glyph" href="#glyph-eye" x="33" y="73" width="44" height="44"></use>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="falcilik" class="closing">
+  <div class="wrap">
+    <svg class="seal" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="55" fill="url(#waxGrad)"/>
+      <circle cx="60" cy="60" r="55" fill="none" stroke="#2a060b" stroke-width="1.5" opacity=".6"/>
+      <use href="#card-frame" x="38" y="22" width="44" height="76"></use>
+      <use href="#glyph-rope" x="51" y="51" width="18" height="18"></use>
+    </svg>
+    <span class="badge"><span class="dot"></span>Kapılar Yakında Aralanıyor</span>
+    <h2>Deste Hazırlanıyor</h2>
+    <p class="lede">Kart anlamları, günlük çekilişler ve kişiye özel fal okumaları çok yakında burada olacak. Güncellemeler için bizi takipte kalın.</p>
+    <ul class="closing-links">
+      <li><a href="#">Instagram</a></li>
+      <li class="sep">◆</li>
+      <li><a href="#">Pinterest</a></li>
+      <li class="sep">◆</li>
+      <li><a href="#">X</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer id="kapanis">
+  <div class="wrap footer-inner">
+    <a class="brand" href="#top" style="text-decoration:none">
+      <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="33" y="73" width="44" height="44"></use></svg>
+      <span class="brand-name">Tarope</span>
+    </a>
+    <ul class="footer-links">
+      <li><a href="#kartlar">Tarot Kartları</a></li>
+      <li><a href="#falcilik">Tarot Falı</a></li>
+      <li><a href="#felsefe">Felsefemiz</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Tarope. Tüm hakları saklıdır.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var nav = document.getElementById('siteNav');
+    function onScroll(){
+      if(window.scrollY > 30){ nav.classList.add('is-scrolled'); }
+      else{ nav.classList.remove('is-scrolled'); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    var stage = document.getElementById('ellipseStage');
+    var cards = Array.prototype.slice.call(stage.querySelectorAll('.tarot-card'));
+    var n = cards.length;
+
+    function layout(){
+      var w = stage.clientWidth;
+      var rx = w * 0.42;
+      var ry = stage.clientHeight * 0.42;
+      cards.forEach(function(card, i){
+        var thetaDeg = (360 / n) * i;
+        var rad = (thetaDeg - 90) * Math.PI / 180;
+        var x = Math.cos(rad) * rx;
+        var y = Math.sin(rad) * ry;
+        card.style.left = '50%';
+        card.style.top = '50%';
+        card.style.transform = 'translate(-50%,-50%) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + thetaDeg.toFixed(1) + 'deg)';
+      });
+    }
+
+    layout();
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layout, 120);
+    });
+  })();
+</script>
