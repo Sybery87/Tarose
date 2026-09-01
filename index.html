@@ -58,7 +58,7 @@
     padding-block:14px;
   }
   .brand{display:flex; align-items:center; gap:11px; text-decoration:none;}
-  .brand-mark{width:19px; aspect-ratio:110/190; flex:none; filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
+  .brand-mark{width:26px; aspect-ratio:110/190; flex:none; filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
   .brand-name{
     font-family:var(--font-display); font-size:1.08rem; font-weight:600; font-style:italic;
     letter-spacing:.02em; color:var(--silver-bright);
@@ -112,6 +112,7 @@
   }
 
   .hero-inner{position:relative; z-index:1; text-align:center; padding-top:clamp(28px,5vw,48px);}
+  .hero-inner .eyebrow{ color:var(--silver-bright); text-shadow:0 1px 5px rgba(0,0,0,.55); }
   .hero h1{
     font-size:clamp(2.5rem, 6.4vw, 4.6rem);
     letter-spacing:0;
@@ -134,7 +135,7 @@
   .zodiac-rule circle{ fill:var(--crimson-bright); }
 
   .ellipse-stage{
-    position:relative;
+    position:relative; z-index:1;
     width:min(96%, 920px);
     height:clamp(280px, 34vw, 420px);
     margin:clamp(18px,4vw,32px) auto 0;
@@ -163,6 +164,7 @@
   .tarot-card:hover .card-inner .glyph{ color:var(--crimson-bright); }
 
   .ellipse-caption{
+    position:relative; z-index:1;
     text-align:center; margin-top:clamp(10px,3vw,20px);
     font-family:var(--font-text); font-variant-caps:small-caps; font-size:1rem;
     letter-spacing:.06em; color:var(--silver-dim);
@@ -349,10 +351,12 @@
       <circle cx="20" cy="20" r="13"/>
       <path d="M20,9 L22.4,17.1 L31,17.4 L24.1,22.7 L26.5,31 L20,25.9 L13.5,31 L15.9,22.7 L9,17.4 L17.6,17.1 Z"/>
     </g></symbol>
-    <symbol id="glyph-tower" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">
-      <rect x="14" y="15" width="12" height="17"/>
-      <path d="M14.5,15 V11 H17 V15 M22,15 V11 H24.5 V15"/>
-      <path d="M8,15 L14,22 L9.5,22 L16,32" stroke="var(--crimson-bright)"/>
+    <symbol id="glyph-tower" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9,33 L9,15 L17,10 L17,31 Z"/>
+      <path d="M31,35 L31,17 L23,12 L23,33 Z"/>
+      <path d="M20,9 L23,15 L18,19 L22,25 L19,32"/>
+      <path d="M13,7 L15,4 L17,7 L19,3 L21,7 L23,4 L25,7" transform="rotate(-9 19 5)"/>
+      <path d="M7,11 L5,8 M33,13 L35,9"/>
     </g></symbol>
     <symbol id="glyph-scales" viewBox="0 0 40 40"><g class="glyph" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M6,13 L34,13"/>
@@ -381,7 +385,7 @@
 
 <nav class="nav" id="siteNav">
   <a class="brand" href="#top">
-    <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="33" y="73" width="44" height="44"></use></svg>
+    <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="27" y="67" width="56" height="56"></use></svg>
     <span class="brand-name">Tarope</span>
   </a>
   <ul class="nav-links">
@@ -428,7 +432,7 @@
     <div class="tarot-card" style="--d:10"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-key" x="33" y="73" width="44" height="44"></use></svg></div>
     <div class="tarot-card" style="--d:11"><svg class="card-inner" viewBox="0 0 110 190"><use href="#card-frame"></use><use class="glyph" href="#glyph-ouroboros" x="33" y="73" width="44" height="44"></use></svg></div>
   </div>
-  <p class="ellipse-caption">On İki Kart · On İki Olası Yol</p>
+  <p class="ellipse-caption">On İki Kart Sonsuz Olası Yol</p>
 
   <div class="hero-scroll"><span></span></div>
 </header>
@@ -496,7 +500,7 @@
       <circle cx="60" cy="60" r="55" fill="url(#waxGrad)"/>
       <circle cx="60" cy="60" r="55" fill="none" stroke="#2a060b" stroke-width="1.5" opacity=".6"/>
       <use href="#card-frame" x="38" y="22" width="44" height="76"></use>
-      <use href="#glyph-rope" x="51" y="51" width="18" height="18"></use>
+      <use href="#glyph-rope" x="49" y="49" width="22" height="22"></use>
     </svg>
     <span class="badge"><span class="dot"></span>Kapılar Yakında Aralanıyor</span>
     <h2>Deste Hazırlanıyor</h2>
@@ -514,7 +518,7 @@
 <footer id="kapanis">
   <div class="wrap footer-inner">
     <a class="brand" href="#top" style="text-decoration:none">
-      <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="33" y="73" width="44" height="44"></use></svg>
+      <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="27" y="67" width="56" height="56"></use></svg>
       <span class="brand-name">Tarope</span>
     </a>
     <ul class="footer-links">
