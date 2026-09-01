@@ -1,4 +1,11 @@
-<title>Tarope</title>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tarose — Tarot kartları anlamları ve tarot falı. Çok yakında açılıyor.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Tarose</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap">
@@ -87,6 +94,36 @@
     .nav-cta .dot{width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); box-shadow:0 0 8px var(--crimson-bright);}
   }
 
+  .nav-toggle{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:36px; height:36px; padding:0; background:none; cursor:pointer;
+    border:1px solid var(--hairline); border-radius:1px; color:var(--silver-bright);
+  }
+  .nav-toggle svg{width:17px; height:12px;}
+  .nav-toggle:focus-visible{outline:1px solid var(--crimson-bright); outline-offset:3px;}
+  @media (min-width:640px){ .nav-toggle{display:none;} }
+
+  .mobile-menu{
+    display:none; position:absolute; left:0; right:0; top:100%;
+    background:rgba(10,10,13,.97); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+    padding:4px clamp(20px,5vw,56px) 22px;
+  }
+  .mobile-menu.is-open{display:block;}
+  @media (min-width:640px){ .mobile-menu{display:none !important;} }
+  .mobile-menu ul{list-style:none; margin:0; padding:0;}
+  .mobile-menu a{
+    display:block; padding:14px 0; border-bottom:1px solid var(--hairline-soft);
+    font-family:var(--font-text); font-variant-caps:small-caps; font-size:1.08rem;
+    letter-spacing:.05em; color:var(--silver-bright); text-decoration:none;
+  }
+  .mobile-menu .mobile-cta{
+    display:inline-flex; align-items:center; gap:8px; margin-top:16px;
+    font-family:var(--font-text); font-variant-caps:small-caps; font-size:.92rem;
+    color:var(--silver-bright); border:1px solid var(--hairline); padding:9px 16px; text-decoration:none;
+  }
+  .mobile-menu .dot{width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); box-shadow:0 0 8px var(--crimson-bright);}
+
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
@@ -142,7 +179,7 @@
   }
   .tarot-card{
     position:absolute; left:50%; top:50%;
-    width:clamp(52px, 8vw, 86px);
+    width:clamp(44px, 8vw, 86px);
     opacity:1;
     --d:0;
   }
@@ -246,7 +283,7 @@
   }
   .badge .dot{width:5px; height:5px; border-radius:50%; background:var(--crimson-bright); box-shadow:0 0 8px var(--crimson-bright);}
   .closing-links{
-    display:flex; justify-content:center; align-items:center; gap:14px; margin:32px 0 0; padding:0; list-style:none;
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:14px; margin:32px 0 0; padding:0; list-style:none;
     font-family:var(--font-text); font-variant-caps:small-caps; letter-spacing:.04em; font-size:.98rem;
   }
   .closing-links a{ text-decoration:none; color:var(--silver-dim); transition:color .2s ease; }
@@ -261,6 +298,9 @@
   .footer-links a:hover{color:var(--silver-bright);}
   .footer-copy{font-family:var(--font-text); font-size:.82rem; color:var(--silver-dim); font-style:italic;}
 </style>
+</head>
+<body>
+
 
 <svg width="0" height="0" style="position:absolute">
   <defs>
@@ -305,12 +345,26 @@
       <circle cx="55" cy="95" r="28" fill="none" stroke="#d7dadf" stroke-width=".7" opacity=".65"/>
     </symbol>
 
-    <!-- knotted, hanging rope glyph — used as the brand mark on a miniature card -->
-    <symbol id="glyph-rope" viewBox="0 0 40 40">
-      <circle cx="20" cy="14.5" r="7.6" fill="none" stroke="url(#ropeGrad)" stroke-width="3.6"/>
-      <ellipse cx="20" cy="7.4" rx="3.8" ry="2.5" fill="url(#ropeGrad)" stroke="#1c1d21" stroke-width=".9"/>
-      <path d="M20,21.6 L20,29.5" fill="none" stroke="url(#ropeGrad)" stroke-width="3.3" stroke-linecap="round"/>
-      <path d="M20,29.5 L16,34.5 M20,29.5 L20,35.5 M20,29.5 L24,34.5" fill="none" stroke="url(#ropeGrad)" stroke-width="1.7" stroke-linecap="round"/>
+    <!-- metallic engraved rose glyph — brand mark on a miniature card -->
+    <symbol id="glyph-rose" viewBox="0 0 40 40">
+      <g fill="url(#ropeGrad)" stroke="#101012" stroke-width=".5" stroke-linejoin="round">
+        <path d="M20,21 C15.5,18.5 15.5,10.5 20,8.5 C24.5,10.5 24.5,18.5 20,21 Z"/>
+        <path d="M20,21 C15.5,18.5 15.5,10.5 20,8.5 C24.5,10.5 24.5,18.5 20,21 Z" transform="rotate(72 20 21)"/>
+        <path d="M20,21 C15.5,18.5 15.5,10.5 20,8.5 C24.5,10.5 24.5,18.5 20,21 Z" transform="rotate(144 20 21)"/>
+        <path d="M20,21 C15.5,18.5 15.5,10.5 20,8.5 C24.5,10.5 24.5,18.5 20,21 Z" transform="rotate(216 20 21)"/>
+        <path d="M20,21 C15.5,18.5 15.5,10.5 20,8.5 C24.5,10.5 24.5,18.5 20,21 Z" transform="rotate(288 20 21)"/>
+      </g>
+      <g fill="url(#ropeGrad)" stroke="#101012" stroke-width=".4" stroke-linejoin="round" transform="rotate(36 20 21)">
+        <path d="M20,21 C17.3,19.3 17.3,15 20,13.7 C22.7,15 22.7,19.3 20,21 Z"/>
+        <path d="M20,21 C17.3,19.3 17.3,15 20,13.7 C22.7,15 22.7,19.3 20,21 Z" transform="rotate(72 20 21)"/>
+        <path d="M20,21 C17.3,19.3 17.3,15 20,13.7 C22.7,15 22.7,19.3 20,21 Z" transform="rotate(144 20 21)"/>
+        <path d="M20,21 C17.3,19.3 17.3,15 20,13.7 C22.7,15 22.7,19.3 20,21 Z" transform="rotate(216 20 21)"/>
+        <path d="M20,21 C17.3,19.3 17.3,15 20,13.7 C22.7,15 22.7,19.3 20,21 Z" transform="rotate(288 20 21)"/>
+      </g>
+      <circle cx="20" cy="21" r="1.6" fill="#101012"/>
+      <path d="M20,24.5 L20,35.5" fill="none" stroke="url(#ropeGrad)" stroke-width="2.1" stroke-linecap="round"/>
+      <path d="M20,29 L23.2,27.3 L20.6,30.1 Z" fill="url(#ropeGrad)" stroke="#101012" stroke-width=".4"/>
+      <path d="M20,32.2 C23,31 25.2,32.8 24.2,35.8 C21.2,36 19.2,34.5 20,32.2 Z" fill="url(#ropeGrad)" stroke="#101012" stroke-width=".4"/>
     </symbol>
 
     <!-- classic tarot iconography, one per spread card -->
@@ -384,8 +438,8 @@
 
 <nav class="nav" id="siteNav">
   <a class="brand" href="#top">
-    <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="27" y="67" width="56" height="56"></use></svg>
-    <span class="brand-name">Tarope</span>
+    <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rose" x="19" y="59" width="72" height="72"></use></svg>
+    <span class="brand-name">Tarose</span>
   </a>
   <ul class="nav-links">
     <li><a href="#kartlar">Tarot Kartları</a></li>
@@ -394,6 +448,18 @@
     <li><a href="#kapanis">İletişim</a></li>
   </ul>
   <a class="nav-cta" href="#kapanis"><span class="dot"></span>Yakında Açılıyor</a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menüyü aç">
+    <svg viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M1,1 H19 M1,7 H19 M1,13 H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#kartlar">Tarot Kartları</a></li>
+      <li><a href="#falcilik">Tarot Falı</a></li>
+      <li><a href="#felsefe">Felsefemiz</a></li>
+      <li><a href="#kapanis">İletişim</a></li>
+    </ul>
+    <a class="mobile-cta" href="#kapanis"><span class="dot"></span>Yakında Açılıyor</a>
+  </div>
 </nav>
 
 <header class="hero" id="top">
@@ -404,7 +470,7 @@
   </div>
 
   <div class="hero-inner wrap">
-    <p class="eyebrow">Tarope — Tarot Kartları &amp; Tarot Falı</p>
+    <p class="eyebrow">Tarose — Tarot Kartları &amp; Tarot Falı</p>
     <h1>Kartların Sessiz<br><em>Dili</em> Aralanıyor</h1>
     <p class="hero-sub">Aralanan her kart, henüz anlatılmamış bir hikâyenin ilk satırıdır.</p>
     <svg class="zodiac-rule" viewBox="0 0 260 16" aria-hidden="true">
@@ -440,7 +506,7 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Yakında Sizinle</p>
-      <h2>Tarope'de Sizi Neler Bekliyor</h2>
+      <h2>Tarose'de Sizi Neler Bekliyor</h2>
       <p class="lede">Deste henüz masaya açılmadı — ama fihristi şimdiden yazılıyor.</p>
     </div>
 
@@ -479,7 +545,7 @@
       <div class="spread-left">
         <span class="dropcap">T</span>
         <blockquote>arot geleceği söylemez; şu anki zihninizin haritasını çizer.
-          <footer>Tarope — Felsefemiz</footer>
+          <footer>Tarose — Felsefemiz</footer>
         </blockquote>
       </div>
       <div class="spread-spine" aria-hidden="true"></div>
@@ -499,7 +565,7 @@
       <circle cx="60" cy="60" r="55" fill="url(#waxGrad)"/>
       <circle cx="60" cy="60" r="55" fill="none" stroke="#2a060b" stroke-width="1.5" opacity=".6"/>
       <use href="#card-frame" x="38" y="22" width="44" height="76"></use>
-      <use href="#glyph-rope" x="49" y="49" width="22" height="22"></use>
+      <use href="#glyph-rose" x="46" y="46" width="29" height="29"></use>
     </svg>
     <span class="badge"><span class="dot"></span>Kapılar Yakında Aralanıyor</span>
     <h2>Deste Hazırlanıyor</h2>
@@ -517,15 +583,15 @@
 <footer id="kapanis">
   <div class="wrap footer-inner">
     <a class="brand" href="#top" style="text-decoration:none">
-      <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rope" x="27" y="67" width="56" height="56"></use></svg>
-      <span class="brand-name">Tarope</span>
+      <svg class="brand-mark" viewBox="0 0 110 190"><use href="#card-frame"></use><use href="#glyph-rose" x="19" y="59" width="72" height="72"></use></svg>
+      <span class="brand-name">Tarose</span>
     </a>
     <ul class="footer-links">
       <li><a href="#kartlar">Tarot Kartları</a></li>
       <li><a href="#falcilik">Tarot Falı</a></li>
       <li><a href="#felsefe">Felsefemiz</a></li>
     </ul>
-    <p class="footer-copy">© 2026 Tarope. Tüm hakları saklıdır.</p>
+    <p class="footer-copy">© 2026 Tarose. Tüm hakları saklıdır.</p>
   </div>
 </footer>
 
@@ -539,14 +605,34 @@
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
 
+    var toggle = document.getElementById('navToggle');
+    var mobileMenu = document.getElementById('mobileMenu');
+    function closeMenu(){
+      mobileMenu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', function(){
+      var isOpen = mobileMenu.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ closeMenu(); }
+    });
+    window.addEventListener('resize', function(){
+      if(window.innerWidth >= 640){ closeMenu(); }
+    });
+
     var stage = document.getElementById('ellipseStage');
     var cards = Array.prototype.slice.call(stage.querySelectorAll('.tarot-card'));
     var n = cards.length;
 
     function layout(){
       var w = stage.clientWidth;
-      var rx = w * 0.42;
-      var ry = stage.clientHeight * 0.34;
+      var rx = w * 0.39;
+      var ry = stage.clientHeight * 0.31;
       cards.forEach(function(card, i){
         var thetaDeg = (360 / n) * i;
         var rad = (thetaDeg - 90) * Math.PI / 180;
@@ -566,3 +652,6 @@
     });
   })();
 </script>
+
+</body>
+</html>
