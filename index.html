@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Tarose — Tarot kartları anlamları ve tarot falı. Çok yakında açılıyor.">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="Tarose — Tarot kartları ve tarot falı üzerine, klasik tarot kültürüne saygıyla tasarlanmış zarif bir deneyim. Yakında açılıyor.">
 <title>Tarose</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap">
@@ -87,23 +87,29 @@
   .smoke-streams{ position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; mix-blend-mode:screen; }
   .smoke-stream{ position:absolute; width:1px; height:1px; }
   .tendril{
-    position:absolute; bottom:0; left:0;
-    width:3.4vmax; height:30vmax;
-    border-radius:50%;
-    background:linear-gradient(to top, rgba(210,213,219,0) 0%, rgba(214,218,224,.4) 22%, rgba(214,218,224,.22) 50%, rgba(214,218,224,0) 92%);
-    filter:blur(13px);
+    position:absolute; bottom:0; left:0; width:1px; height:1px;
     transform-origin:bottom center;
     opacity:0;
-    animation:rise 24s ease-in-out infinite;
+    animation:rise 26s ease-in-out infinite;
   }
-  .tendril:nth-child(2){ animation-delay:-8s; }
-  .tendril:nth-child(3){ animation-delay:-16s; }
+  .tendril i{
+    position:absolute; border-radius:50%; filter:blur(12px);
+    background:radial-gradient(circle, rgba(216,219,225,.55), rgba(216,219,225,0) 72%);
+  }
+  .tendril i:nth-child(1){ width:4.6vmax; height:4.6vmax; bottom:-1vmax; left:-2.3vmax; }
+  .tendril i:nth-child(2){ width:6vmax; height:6vmax; bottom:7vmax; left:-0.8vmax; }
+  .tendril i:nth-child(3){ width:5.2vmax; height:5.2vmax; bottom:16vmax; left:-3vmax; }
+  .tendril i:nth-child(4){ width:4.2vmax; height:4.2vmax; bottom:15.5vmax; left:1.4vmax; }
+  .tendril i:nth-child(5){ width:5vmax; height:5vmax; bottom:23.5vmax; left:-1vmax; }
+  .tendril i:nth-child(6){ width:3.6vmax; height:3.6vmax; bottom:30vmax; left:1.8vmax; }
+  .tendril:nth-child(2){ animation-delay:-9s; }
+  .tendril:nth-child(3){ animation-delay:-17s; }
   @keyframes rise{
-    0%{ transform:translate(0,0) rotate(0deg) scaleX(1); opacity:0; }
-    12%{ opacity:.55; }
-    45%{ transform:translate(2.6vw,-42vh) rotate(7deg) scaleX(1.5); opacity:.4; }
-    75%{ transform:translate(-2.2vw,-76vh) rotate(-6deg) scaleX(1.9); opacity:.16; }
-    100%{ transform:translate(3.2vw,-108vh) rotate(10deg) scaleX(2.2); opacity:0; }
+    0%{ transform:translate(0,0) rotate(0deg) scale(.7); opacity:0; }
+    12%{ opacity:.5; }
+    40%{ transform:translate(2.4vw,-38vh) rotate(9deg) scale(1.08); opacity:.4; }
+    70%{ transform:translate(-2vw,-72vh) rotate(-7deg) scale(1.4); opacity:.2; }
+    100%{ transform:translate(2.8vw,-106vh) rotate(13deg) scale(1.85); opacity:0; }
   }
   @media (prefers-reduced-motion:reduce){ .smoke-streams{ display:none; } }
 
@@ -522,12 +528,12 @@
 </div>
 
 <div class="smoke-streams" aria-hidden="true">
-  <span class="smoke-stream" style="top:14%; left:22%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
-  <span class="smoke-stream" style="top:30%; left:76%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
-  <span class="smoke-stream" style="top:47%; left:12%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
-  <span class="smoke-stream" style="top:63%; left:68%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
-  <span class="smoke-stream" style="top:80%; left:30%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
-  <span class="smoke-stream" style="top:93%; left:60%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
+  <span class="smoke-stream" style="top:14%; left:22%;"><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <span class="smoke-stream" style="top:30%; left:76%;"><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <span class="smoke-stream" style="top:47%; left:12%;"><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <span class="smoke-stream" style="top:63%; left:68%;"><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <span class="smoke-stream" style="top:80%; left:30%;"><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+  <span class="smoke-stream" style="top:93%; left:60%;"><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="tendril"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
 </div>
 
 <div class="geo-accents" aria-hidden="true">
@@ -756,5 +762,4 @@
   })();
 </script>
 
-</body>
 </html>
