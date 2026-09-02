@@ -83,6 +83,30 @@
   @keyframes driftD{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-7vmax,-5vmax) scale(.92);} }
   @media (prefers-reduced-motion:reduce){ .wisp{ animation:none; } }
 
+  /* ---------- INCENSE-LIKE SMOKE TENDRILS (rising, swaying, curling, dissipating) ---------- */
+  .smoke-streams{ position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; mix-blend-mode:screen; }
+  .smoke-stream{ position:absolute; width:1px; height:1px; }
+  .tendril{
+    position:absolute; bottom:0; left:0;
+    width:3.4vmax; height:30vmax;
+    border-radius:50%;
+    background:linear-gradient(to top, rgba(210,213,219,0) 0%, rgba(214,218,224,.4) 22%, rgba(214,218,224,.22) 50%, rgba(214,218,224,0) 92%);
+    filter:blur(13px);
+    transform-origin:bottom center;
+    opacity:0;
+    animation:rise 24s ease-in-out infinite;
+  }
+  .tendril:nth-child(2){ animation-delay:-8s; }
+  .tendril:nth-child(3){ animation-delay:-16s; }
+  @keyframes rise{
+    0%{ transform:translate(0,0) rotate(0deg) scaleX(1); opacity:0; }
+    12%{ opacity:.55; }
+    45%{ transform:translate(2.6vw,-42vh) rotate(7deg) scaleX(1.5); opacity:.4; }
+    75%{ transform:translate(-2.2vw,-76vh) rotate(-6deg) scaleX(1.9); opacity:.16; }
+    100%{ transform:translate(3.2vw,-108vh) rotate(10deg) scaleX(2.2); opacity:0; }
+  }
+  @media (prefers-reduced-motion:reduce){ .smoke-streams{ display:none; } }
+
   /* ---------- SCATTERED V / TRIANGLE ACCENTS (faint silver + crimson echoes of the hero V, edges only) ---------- */
   .geo-accents{ position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
   .geo{ position:absolute; opacity:.09; filter:blur(22px); }
@@ -495,6 +519,15 @@
   <span class="wisp w4"></span>
   <span class="wisp w5"></span>
   <span class="wisp w6"></span>
+</div>
+
+<div class="smoke-streams" aria-hidden="true">
+  <span class="smoke-stream" style="top:14%; left:22%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
+  <span class="smoke-stream" style="top:30%; left:76%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
+  <span class="smoke-stream" style="top:47%; left:12%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
+  <span class="smoke-stream" style="top:63%; left:68%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
+  <span class="smoke-stream" style="top:80%; left:30%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
+  <span class="smoke-stream" style="top:93%; left:60%;"><span class="tendril"></span><span class="tendril"></span><span class="tendril"></span></span>
 </div>
 
 <div class="geo-accents" aria-hidden="true">
